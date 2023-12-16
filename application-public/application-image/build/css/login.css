@@ -1,0 +1,181 @@
+:root{
+    --lighter-blue: #3C8FF5;
+    --blue: #1C75BC;
+    --dark-blue: #0B5A9C;
+    --yellow: #F6BE00;
+    --font: "Poppins";
+    --gray: #808285;
+    --lightgray: #939598;
+    --lighter-lightgray: #E9E9E9;
+
+    --main-content-margin-top: 15vh;
+  }
+
+#page{
+    margin:20px;
+    width:calc(100% - 40px);
+    height:calc(100% - 40px);
+    background-color:none;
+}
+
+
+#header{
+    background: none;
+}
+
+#homepage-link{
+    font-size:25px;
+    color:black;
+}
+
+.main-content-boundary{
+    height: auto;
+}
+
+#fyh-logo{
+    height:100px;
+    width:300px;
+}
+
+.logo-boundary{
+    width: 150px;
+}
+
+#main-content{
+    background:white;
+    margin-top:var(--main-content-margin-top)
+}
+
+#form-title-background{
+    height:100px;
+    margin-right:calc(50% - 200px);
+    margin-left:calc(50% - 200px);
+    background:white;
+    margin-bottom: 75px;
+}
+
+#form-title{
+    font-family:var(--font);
+    font-size: 50px;
+    font-weight: 350;
+    width:350px;
+    background:white;
+    color:var(--yellow);
+    padding-right:32px;
+    padding-left:32px;
+}
+
+@keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(200px);
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+@keyframes fadeInLeft {
+from {
+    opacity: 0;
+    transform: translateX(-200px);
+}
+to {
+    opacity: 1;
+}
+}
+
+
+#bottom-text{
+    animation:fadeInRight .8s ease-in-out;
+}
+
+#top-text{
+    animation:fadeInLeft .8s ease-in-out;
+}
+
+#main-form{
+    background:white;
+    padding-left:calc(50% - 135px);
+    padding-right:calc(50% - 135px);
+}
+
+.form-control{
+    font-family: var(--font);
+    font-size: 14px;
+    border-color: var(--lighter-blue) !important;
+}
+
+.form-label{
+    color:var(--gray);
+    margin-bottom:1px;
+    font-family:var(--font);
+    font-size:12px;
+}
+
+.form-group{
+    margin:5px;
+}
+
+#password.form-fixer{
+    padding-right:40px;
+}
+
+#togglePassword{
+    margin-left:-30px;
+    margin-top:5px;
+}
+
+
+#submit-btn.btn-primary{
+    background-color:var(--blue) !important;
+    margin-top: 25px;
+    font-size:20px;
+    font-family:var(--font);
+}
+
+#submit-btn.btn-primary:hover{
+    background-color:var(--dark-blue) !important;
+}
+
+
+.error{
+    color: red;
+    font-size: 12px;
+    font-weight:500;
+    font-family:var(--font);
+    margin:0px;
+    opacity:0;
+    display:block;
+}
+
+.error.show{
+    opacity:1;
+}
+
+
+#sign-up-text{
+    margin-right:5px;
+    color:var(--gray);
+}
+
+.link{
+    color:var(--blue);
+}
+
+.link:hover{
+    color:var(--dark-blue);
+}
+
+#sign-up{
+    margin-top:30px;
+    font-family: var(--font);
+    font-weight:100;
+    font-size:16px;
+}
+
+.disabled {
+    pointer-events: none;
+    background-color: var(--lighter-lightgray);
+  }
+

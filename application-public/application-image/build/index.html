@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Open Graph tags -->
+  <meta property="og:title" content="findyourhome"/>
+  <meta property="og:description" content="Come find your home at findyourhome.io!" />
+  <meta property="og:url" content="https://findyourhome.io" />
+  <meta property="og:image" content="https://findyourhome.io/static/fyh-logo.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- More meta tags for more control -->
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <title>findyourhome</title>
+  <link rel="icon" type="image/png" href="static/fyh-favicon.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+  <link href="css/index.css" rel="stylesheet">
+  <script defer src="https://code.jquery.com/jquery-3.7.0.min.js" type="module" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.17/fetch.min.js" type="module" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" type="module" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script defer src="scripts/index.js" type="module"></script>
+</head>
+<body class="index">
+  <div id ="page" class="container-fluid">
+    <div id = "page-content" class="row g-0">
+      <div id="search-panel" class="col col-auto">
+        <div id="search-panel-content">
+          
+          <div id="search-header-wrapper" class="">
+            <div id = "search-header" class="row g-0">
+              <div id="title-col" class= "d-flex justify-content-between col sp-header-col" style="flex-direction: column">
+                <div></div>
+                <div id = "search-title" class="rounded-3 text-center">
+                  <span>your</span>
+                  <span id="searches-text">searches</span>
+                </div>
+                <div></div>
+              </div>
+              <div id="btn-col" class="d-flex justify-content-around col-auto sp-header-col">
+                <div id="refresh-btn-aria" class="d-flex justify-content-between" style="flex-direction: row">
+                  <div></div>
+                  <div id="refresh-btn" class="rounded-3 search-header-btn" title="Refresh searches">
+                    <i id="refresh-btn-icon" class="bi bi-arrow-repeat"></i>
+                  </div>
+                  <div></div>
+                </div>
+                <div id = "exit-btn-aria" class="d-flex justify-content-between" style="flex-direction: row">
+                  <div></div>
+                  <div id="exit-btn" class="rounded-3 search-header-btn" title="Exit searches">
+                    <i id="exit-btn-icon" class="bi bi-x-lg"></i>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="search-items" class="d-flex justify-content-start" style="flex-direction: column">
+            <template id="search-card-template">
+              <div class="card search-card login-card" role="button" data-id="" aria-pressed="true">
+                <div class="card-top card-img-top" title="View search">
+                  <div class="text-center">
+                    <i class="bi bi-houses card-img"></i>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item price-list-item">
+                      <i class="bi bi-currency-dollar card-img"></i>
+                      $<span class="price-min-search keyword"></span>
+                      ─
+                      $<span class="price-max-search keyword"></span>
+                    </li>
+                    <li class="list-group-item prop-type-list-item">
+                      <i class="bi bi-house-door card-img"></i>
+                      <span class="prop-type-search keyword"></span>
+                    </li>
+                    <li class="list-group-item year-built-list-item">
+                        <i class="bi bi-calendar card-img"></i>
+                        <span class="year-built-min-search keyword"></span>
+                        ─
+                        <span class="year-built-max-search keyword"></span>
+                        <abbr></abbr>
+                    </li>
+                    <li class="list-group-item loc-list-item">
+                      <i class="bi bi-pin-map card-img"></i>
+                      <span class="loc-search keyword">test</span>
+                    </li>
+                    <li class="list-group-item dim-list-item">
+                      <i class="card-img bi bi-house-check"></i>
+                      <span class="dim ">
+                        <span class="beds-search keyword"></span>
+                        <abbr>bds</abbr>
+                      </span>
+                      <span class="dim ">
+                        <span class="baths-search keyword"></span>
+                        <abbr>ba</abbr>
+                      </span>
+                      <span class="dim ">
+                        <span class="sqft-search keyword"></span>
+                        <abbr>sqft</abbr>
+                      </span>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            </template>
+            <template id = "search-card-no-login-template">
+                <div class="card search-card no-login-card" role="button">
+                  <div class="card-top card-img-top" title="Login">
+                    <div class="text-center">
+                      <span class="card-img">login</span>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <i class="bi bi-exclamation-circle card-img"></i>
+                        <span class="prop-type-search keyword">Save your last 10 searches</span>
+                      </li>
+                      <li class="list-group-item list-group-flush">
+                        <i class="bi bi-exclamation-circle card-img"></i>
+                        <span class="loc-search keyword">Fill forms instantly with previous search dimensions</span>
+                      </li>
+                      <li class="list-group-item">
+                        <i class="bi bi-exclamation-circle card-img"></i>
+                        <span class="prop-type-search keyword">View your searches with a single click<span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </template>
+          </div>
+        </div>
+      </div>
+      
+      <div id="main-background" class="col">
+        <div id="main-content-header" class="d-flex justify-content-between" style="flex-direction: row">
+          <div id = "header-btn" class="logo-boundary text-left">
+            <i id="search-panel-btn" class="bi bi-justify" role="button"></i>
+          </div> 
+          <div id="fyh-logo-bg">
+            <img id = "fyh-logo" src="static/fyh-logo.svg" alt="fyh-logo"/>
+          </div> 
+            <div id ="header-links" class="logo-boundary d-flex justify-content-end" style="flex-direction: row">
+              <div class="link-group hidden" id="loggedOut">
+                <span>
+                  <a class="link" href="login.html">Login</a>
+                  <a class="link" href="register.html">Sign Up</a>
+                </span>
+              </div>
+              <div class="link-group hidden" id = "loggedIn">
+                <span>
+                  <a class="link" id = "logout" role="button">Logout</a>
+                  <a class="link" href="update.html">Update</a>
+                </span>
+              </div>
+            </div>
+        </div>
+        <div id="main-wrapper" class="">
+          <div id="main-content" class="row g-0">
+
+            <div class="main-content-boundary col"></div>
+
+            <div id ='main-col' class="col col-sm-7">
+              <div id ="form-aria-wrapper" class="">
+                <div id="submitted-bg">
+                  <div id="loaded-obj-bg" class="d-flex justify-content-end" style="flex-direction: column;">
+                    <div class="d-flex justify-content-between">
+                      <div></div>
+                      <div id="see-houses-btn" class="rounded" role = "button" title="View results" data-storage-id="">
+                        <div class="">
+                          <div class="d-flex justify-content-between">
+                            <div></div>
+                            <i id= "see-houses-icon" class="bi bi-houses"></i>
+                            <div></div>
+                          </div>
+                          <div id ="see-houses-text" class="text-center">View Homes</div>
+                        </div>
+                      </div>
+                      <div id = "lds-ring" class="loader"></div>
+                      <div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="main-form" class="">
+                  <div id = "price-group" class="form-group">
+                    <div id = "price-group-items" class="form-group-items">
+                      <label id="price-label" for="price-bg" class="label-primary">price</label>
+                      <div id ="price-bg" class="d-flex justify-content-between min-max-entry">
+                        <div>
+                          <label for="price-min" class="min-max-tag label-secondary">min</label>
+                          <input type="text" class="min-max-input sub-label form-control price" id="price-min" value="0">  
+                        </div>
+                        <div id="price-divider" class="divider">─</div>
+                        <div>
+                          <label for="price-max" class="min-max-tag label-secondary">max</label>
+                          <input type="text" class="min-max-input sub-label form-control price" id="price-max" value="1,000,000,000">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="prop-type-group" class="form-group">
+                    <div id = "prop-type-group-items" class="form-group-items">
+                      <label class="label-primary" for="prop-type">property type</label>
+                      <select type="text" class="selectpicker form-control" id="prop-type" data-live-search="false" placeholder="Nothing selected" data-style="form-control">
+                      </select>
+                    </div>
+                  </div>
+                  <div id = "year-built-group" class="form-group hidden">
+                    <div id = "year-built-group-items" class="form-group-items">
+                      <label id="year-built-label" for="year-built-bg" class="label-primary">year built</label>
+                      <div id ="year-built-bg" class="d-flex justify-content-between min-max-entry">
+                        <div>
+                          <label for="year-built-min" class="min-max-tag label-secondary">min</label>
+                          <input type="text" class="min-max-input sub-label form-control year" id="year-built-min" value="1776">  
+                        </div>
+                        <div id="year-built-divider" class="divider">─</div>
+                        <div>
+                          <label for="year-built-max" class="min-max-tag label-secondary">max</label>
+                          <input type="text" class="min-max-input sub-label form-control year" id="year-built-max" value="2023">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="location-group" class="form-group hidden">
+                    <div id = "location-group-items" class="form-group-items">
+                      <label class="label-primary" for="location">location</label>
+                      <input type="autocomplete" class="form-control" id="location" placeholder="Search...">
+                      </input>
+                    </div>
+                  </div>
+                  <div id = "beds-group" class="form-group hidden">
+                    <div id = "beds-group-items" class="form-group-items">
+                      <label class="label-primary" for="bd">bedrooms</label>
+                      <input type="bd" class="form-control sm-nm" id="bd" aria-describedby="bdHelp">
+                    </div>
+                  </div>
+                  <div id = "baths-group" class="form-group hidden">
+                    <div id = "baths-group-items" class="form-group-items">
+                      <label class="label-primary" for="ba">bathrooms</label>
+                      <input type="ba" class="form-control sm-nm" id="ba" aria-describedby="baHelp">
+                    </div>
+                  </div>
+                  <div id = "sqft-group" class="form-group hidden">
+                    <div id = "sqft-group-items" class="form-group-items">
+                      <label class="label-primary" for="sqft">square feet</label>
+                      <input type="sqft" class="form-control lg-nm" id="sqft" aria-describedby="sqftHelp">
+                    </div>
+                  </div>
+                  <div id = "buttons-group" class="form-group">
+                    <div id = "buttons-group-items" class="form-group-items">
+                      <div class="d-flex justify-content-between">
+                        <button id="ifl-btn" type="submit" class="btn btn-primary form-btn disabled">I'm Feeling Lucky</button>
+                        <button id = "sbmt-btn" type="submit" class="btn btn-primary form-btn disabled">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="badge-bg" class="d-flex justify-content-between">
+                <div></div>
+                <div id="badge-area">
+                  <div id="badge-top">
+                    <template id="like-action-template">
+                        <div id="like-action-bg">
+                          <i class="bi bi-balloon-heart-fill" id ="like-action"></i>
+                        </div>
+                    </template>
+                  </div>
+                  <div id="celebration-badge" class="badge rounded-pill container-fluid" role="button">
+                    <div id = "cb-row" class="row g-0">
+    
+                      <div id = "cb-col-btn" class="col col-auto">
+                        <div id="like-btn-area">
+                          <i class="bi bi-balloon-heart" id="like-button"></i>
+                        </div>
+                      </div>
+    
+                      <div id ="cb-col-main" class="col">
+                        <div class="">
+                          <div id="like-count" class="prevent-select hidden"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="like-btn-text" class="text-center prevent-select">
+                    Drop a balloon!
+                  </div>
+                </div>
+                <div></div>
+              </div>
+
+            </div>
+            
+            <div class="main-content-boundary col"></div>
+
+          </div>
+        </div>
+        <div id ="main-content-footer" class="d-flex justify-content-end" style="flex-direction: column;">
+          <div class="d-flex justify-content-end">
+              <div role="button" href="https://github.com/clearboxco" id="footer-text" class="d-flex justify-content-start prevent-select" style="flex-direction: column;">
+                <div>
+                  <span id ="gh-link" class="bi bi-github"></span>
+                  <span>clearboxco</span>
+                </div>  
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+
+
+</html>
+
+
+

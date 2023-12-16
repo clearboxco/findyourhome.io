@@ -1,0 +1,1 @@
+Task -> S3 : Triggers Lambda -> Task -> EC2 w/ pgsql
