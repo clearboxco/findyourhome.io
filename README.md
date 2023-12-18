@@ -1,3 +1,11 @@
+# Table of Contents
+
+### [Client Application](https://github.com/clearboxco/findyourhome.io/edit/main/README.md#client-application)
+### [Main Server Model](https://github.com/clearboxco/findyourhome.io/edit/main/README.md#main-server-model)
+### [Data Pipeline](https://github.com/clearboxco/findyourhome.io/edit/main/README.md#data-pipeline)
+
+
+
 # Client Application
 
 ## Architecture
@@ -57,17 +65,27 @@ The front-end application is responsible for hosting all client-side javascript
 
 
 # Main Server Model
+
 ## Architecture
 ### Main Server
+
+Test
 
 ## Design
 ### Main Server
 
+test
+
 # Data Pipeline
+
 ## Architecture
 ### Main Pipeline
 
+Test
+
 ### Support Pipeline
+
+test
 
 ## Design
 ### Main Pipeline
