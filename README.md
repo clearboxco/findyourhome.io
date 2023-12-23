@@ -68,6 +68,12 @@ It uses a routing directory to overlay paths from the exterior ports into the Ex
 # Main Server Model
 
 ## Architecture
+
+### Database
+Deployed as a pgSQL server hosted on an AWS EC2 instance.
+
+Administered using SSH protocol.
+
 ### Main Server
 Deployed as a Python:slim-buster image.
 
@@ -82,11 +88,57 @@ Executes supervisord by calling the location of the executable.
 Deploys a Flask application supported by a fleet of Celery workers managed by supervisord.
 
 ## Design
+
+### In General
+Communication with the server is facilitated through HTTP requests.
+
+Wrapper libraries are used to manage the connection with the database.
+
+### Database
+
+#### Role Management
+Roles are granted the minimum privileges necessary to execute their function.
+
+Connection to the database is authenticated using user information.
+
+#### Schema
+Each record is dependent on a single primary key.
+
+1-to-1 relationships are defined using a single table.
+
+1-to-many relationships are defined by linking a foreign key to the primary table.
+
+Many-to-many relationships are defined using a common join table.
+
 ### Main Server
 
 #### Flask Application Factory
+The Flask Application factory pattern is used to ingest the config, register blueprints, and host the application.
 
-####
+The config is the primary source for all global static variables.
+
+Blueprints are registered with a routing prefix to facilitate overlaying paths from the exterior ports into the container.
+
+#### Authorization
+Allows all pre-flight requests to facilitate custom header requests.
+
+Denies non-pre-flight requests provided they do not originate from the specified URLs.
+
+Cross-origin access is granted provided the request matches the host URL.
+
+### Authentication
+Authentication is managed through a custom User class.
+
+Information is hashed using Werkzeug security protocols and checked against stored hashes in the database.
+
+#### Recommendation Model
+Streams relevant data from the database using the parameters outlined in the JSON request.
+
+Configures the model weights depending on the user preferences and assigns a random state to ensure varying result states.
+
+#### Auxiliary Data Functions
+
+#### Celery
 
 
 
