@@ -126,23 +126,41 @@ Denies non-pre-flight requests provided they do not originate from the specified
 
 Cross-origin access is granted provided the request matches the host URL.
 
-### Authentication
+#### Authentication
 Authentication is managed through a custom User class.
 
 Information is hashed using Werkzeug security protocols and checked against stored hashes in the database.
+
+Endpoints requiring authentication are guarded with the `@login_required` decorator.
 
 #### Recommendation Model
 Streams relevant data from the database using the parameters outlined in the JSON request.
 
 Configures the model weights depending on the user preferences and assigns a random state to ensure varying result states.
 
+Scales relevant dimensions using a Min/Max scaler.
+
+Fits a NN model to the data using a weighted Euclidean distance metric.
+
+Selects the top X homes and returns the data to the caller.
+
+Publishes user search information to the database asynchronously through Celery.
+
 #### Auxiliary Data Functions
+Performs back-end support functions like returning user and global data.
+
+To GET a search returns the search parameters.
+
+To PUT a search returns the search results.
+
+Publishes user claps to the database asynchronously through Celery.
 
 #### Celery
+Celery is a thread manager for asynchronous execution. Flask has a great initialization pattern built-in.
 
+Calls to `@shared_task` decorated functions push tasks to an AWS SQS queue for later execution.
 
-
-
+Worker processes monitor this queue and execute the messages when resources are available.
 
 # Data Pipeline
 
