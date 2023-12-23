@@ -10,7 +10,7 @@
 
 ## Architecture
 ### In General
-Deployed in a load-balanced AWS Elastic Beanstalk instance.
+Deployed in the load-balanced AWS Elastic Beanstalk instance.
 
 Uses [AWS.dockerrun.json v2](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun) config to orchestrate containers.
 
@@ -40,19 +40,37 @@ Communication with the support server and main server is facilitated through val
 
 ### Main Interface
 
-#### Structure
+#### Directory Structure
 The HTML is stored in the parent directory. The CSS pages are stored in a css directory and are referenced by the HTML. Javascript plug-ins are delivered through CDN requests in the HTML.
 
-The native Javascript is separated into conceptual pieces within the index.js file. General function utilities, global variables, and mapping structures are declared first. Following that, the Javascript for each webpage is divided into 2 sections: Function Definitions and Function Attachments. The major exception for this is the templates, where function attachments are made within the function definition.
+The native Javascript is separated into conceptual pieces within the index.js file.
+
+General function utilities, global variables, and mapping structures are declared first.
+
+Following that, the Javascript for each webpage is divided into 2 sections: Function Definitions and Function Attachments.
+
+The major exception for this is the templates, where function attachments are made within the function definition.
 
 #### Visual Elements with HTML/CSS
-The webpages are designed using bootstrapped HTML and modified with custom CSS classes. By making use of CSS variables, themes and sizing remain consistent throughout the design. CSS-keyframes are utilized to perform static visual changes as applicable.
+The webpages are designed using bootstrapped HTML and modified with custom CSS classes.
+
+By making use of CSS variables, themes and sizing remain consistent throughout the design.
+
+CSS-keyframes are utilized to perform static visual changes as applicable.
 
 #### Controlling Visual Elements with Javascript
-The Javascript serves as the main driver for the interface. It is responsible for performing the majority of dynamic webpage interactions and checks. Changes to the visual elements are made with Javascript DOM manipulations, and Javascript templates are used to create components that can be added or removed as needed.
+The Javascript serves as the main driver for the interface.
+
+It is responsible for performing the majority of dynamic webpage interactions and checks.
+
+Changes to the visual elements are made with Javascript DOM manipulations.
+
+Javascript templates are used to create components that can be added or removed as needed.
 
 #### Getting Data with Javascript
-The Fetch API is used as the wrapper for facilitating all HTTP requests. Cross-origin validation is used to ensure data received from the servers can be represented in the HTML.
+The Fetch API is used as the wrapper for facilitating all HTTP requests.
+
+Cross-origin validation is used to ensure data received from the servers can be represented in the HTML.
 
 #### Storing Data with Javascript
 Data received is stored in the local sessionStorage and fetched on an encrypted index.
@@ -68,6 +86,8 @@ It uses a routing directory to overlay paths from the exterior ports into the Ex
 # Main Server Model
 
 ## Architecture
+### In General
+Deployed on AWS. Uses [AWS.dockerrun.json v2](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun) config to orchestrate containers.
 
 ### Database
 Deployed as a pgSQL server hosted on an AWS EC2 instance.
@@ -75,7 +95,7 @@ Deployed as a pgSQL server hosted on an AWS EC2 instance.
 Administered using SSH protocol.
 
 ### Main Server
-Deployed as a Python:slim-buster image.
+Deployed in the load-balanced AWS Elastic Beanstalk instance as a Python:slim-buster image.
 
 Uses requirements.txt to read dependencies and installs them with pip.
 
