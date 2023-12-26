@@ -1,6 +1,6 @@
 # Welcome
 
-Welcome to the official GitHub repository for findyourhome.io!
+Welcome to the official GitHub repository for [findyourhome.io](https://findyourhome.io/)!
 
 Please feel free to leave questions or comments in the official [Discord Channel](https://discord.com/invite/kQ97PT4Nnn)!
 
