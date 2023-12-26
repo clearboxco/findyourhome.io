@@ -10,7 +10,9 @@
 
 ## Architecture
 ### In General
-Deployed in the load-balanced AWS Elastic Beanstalk instance.
+Deployed on AWS in a load-balanced AWS Elastic Beanstalk instance.
+
+Images to be used as containers are stored and fetched from AWS ECR.
 
 Uses [AWS.dockerrun.json v2](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun) config to orchestrate containers.
 
@@ -40,11 +42,12 @@ Communication with the support server and main server is facilitated through val
 
 ### Main Interface
 
-#### Directory Structure
-The HTML is stored in the parent directory. The CSS pages are stored in a css directory and are referenced by the HTML. Javascript plug-ins are delivered through CDN requests in the HTML.
+#### Content Delivery
+The CSS pages are stored in a css directory and are referenced by the HTML as stylesheets.
 
-The native Javascript is separated into conceptual pieces within the index.js file.
+Javascript plug-ins are delivered through CDN requests in the HTML.
 
+#### Navigating index.js
 General function utilities, global variables, and mapping structures are declared first.
 
 Following that, the Javascript for each webpage is divided into 2 sections: Function Definitions and Function Attachments.
@@ -87,7 +90,11 @@ It uses a routing directory to overlay paths from the exterior ports into the Ex
 
 ## Architecture
 ### In General
-Deployed on AWS. Uses [AWS.dockerrun.json v2](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun) config to orchestrate containers.
+Deployed on AWS.
+
+Images to be used as containers are stored and fetched from AWS ECR.
+
+Uses [AWS.dockerrun.json v2](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun) config to orchestrate containers.
 
 ### Database
 Deployed as a pgSQL server hosted on an AWS EC2 instance.
@@ -95,7 +102,7 @@ Deployed as a pgSQL server hosted on an AWS EC2 instance.
 Administered using SSH protocol.
 
 ### Main Server
-Deployed in the load-balanced AWS Elastic Beanstalk instance as a Python:slim-buster image.
+Deployed as a Python:slim-buster image on a load-balanced Elastic Beanstalk instance.
 
 Uses requirements.txt to read dependencies and installs them with pip.
 
@@ -185,13 +192,30 @@ Worker processes monitor this queue and execute the messages when resources are 
 # Data Pipeline
 
 ## Architecture
+### In General
+Utilizes AWS S3 as the long-term storage location for unstructured data.
+
+Images to be used in tasks are stored and fetched from AWS ECR.
+
+The AWS Elastic Container Service (ECS) is used to define, schedule, and execute tasks.
+
 ### Main Pipeline
-Test
+Deployed as a Python:slim-buster image.
+
+Uses requirements.txt to read dependencies and installs them with pip.
+
+Executes the `data_script.py` script as an entrypoint to allow for command line arguments.
 
 ### Support Pipeline
-test
+Deployed as a Python:slim-buster image.
+
+Uses requirements.txt to read dependencies and installs them with pip.
+
+Executes the `put_data.py` script as an entrypoint to allow for command line arguments.
 
 ## Design
+### In General
+
 ### Main Pipeline
 test
 
