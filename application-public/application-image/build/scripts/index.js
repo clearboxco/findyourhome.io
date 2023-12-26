@@ -1533,7 +1533,7 @@ const displayData = (data,cardsPerRow) =>{
 
             entryItems[5].innerHTML=house.bedrooms;
             entryItems[6].innerHTML=house.bathrooms;
-            entryItems[7].innerHTML=new Number(house.sqft).toLocaleString('en-US'); //Bitwise Operation to convert to signed 32-bit int
+            entryItems[7].innerHTML=new Number(house.sqft).toLocaleString('en-US');
 
             entryItems[8].innerHTML= new Number(house.year_built) | 0; //Bitwise Operation to convert to signed 32-bit int
             entryItems[9].innerHTML= new Number(house.price_per_sqft).toLocaleString('en-US');
@@ -1706,7 +1706,5 @@ if(hasPageClass("output")){
         /*END ORDERING*/
     })
 
-
-    //Need to revise to attach to created templates
 
 }

@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.10.5-slim-buster
 WORKDIR /pipeline
 
 COPY requirements.txt requirements.txt
