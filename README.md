@@ -197,9 +197,11 @@ Worker processes monitor this queue and execute the messages when resources are 
 ### In General
 Utilizes AWS S3 as the long-term storage location for unstructured data.
 
-Images to be used in tasks are stored and fetched from the AWS Elastic Container Repository (ECR).
+Images to be used in task definitions are stored and fetched from the AWS Elastic Container Repository (ECR).
 
 The AWS Elastic Container Service (ECS) is used to define, schedule, and execute tasks.
+
+The AWS Lambda service is used to trigger the Support Pipeline after the Main Pipeline completes.
 
 ### Main Pipeline
 Deployed as a Python:slim-buster image.
@@ -217,10 +219,22 @@ Executes the `put_data.py` script as an entrypoint to allow for command line arg
 
 ## Design
 ### In General
+Data is mined, ingested, and parsed daily using these two pipelines.
+
+Command line arguments allow for ad-hoc modifications to the execution instructions.
 
 ### Main Pipeline
-test
+Scheduled to run daily as defined by a CRON expression.
+
+Leverages multi-threading practices from the [RedfinScraper](https://github.com/ryansherby/RedfinScraper) library to maximize throughput.
+
+Parses the data in chunks and stores them as parquet files in an AWS S3 bucket.
 
 ### Support Pipeline
-test
+Scheduled to run upon successful completion of the main pipeline, which is detected using an AWS Lambda expression that monitors an S3 bucket.
+
+Pulls the parquet files from S3 and applies conceptual and logical adjustments to the data.
+
+Establishes a connection to the pgSQL Database and updates the data in the table.
+
 
