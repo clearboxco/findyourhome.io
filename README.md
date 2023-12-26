@@ -12,7 +12,7 @@
 ### In General
 Deployed on AWS in a load-balanced AWS Elastic Beanstalk instance.
 
-Images to be used as containers are stored and fetched from AWS ECR.
+Images to be used as containers are stored and fetched from the AWS Elastic Container Repository (ECR).
 
 Uses [AWS.dockerrun.json v2](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun) config to orchestrate containers.
 
@@ -92,7 +92,9 @@ It uses a routing directory to overlay paths from the exterior ports into the Ex
 ### In General
 Deployed on AWS.
 
-Images to be used as containers are stored and fetched from AWS ECR.
+Images to be used as containers are stored and fetched from the AWS Elastic Container Repository (ECR).
+
+Utilizes the AWS Simple Queue Service (SQS) to facilitate asynchronous execution.
 
 Uses [AWS.dockerrun.json v2](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun) config to orchestrate containers.
 
@@ -195,7 +197,7 @@ Worker processes monitor this queue and execute the messages when resources are 
 ### In General
 Utilizes AWS S3 as the long-term storage location for unstructured data.
 
-Images to be used in tasks are stored and fetched from AWS ECR.
+Images to be used in tasks are stored and fetched from the AWS Elastic Container Repository (ECR).
 
 The AWS Elastic Container Service (ECS) is used to define, schedule, and execute tasks.
 
