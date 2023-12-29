@@ -1,6 +1,7 @@
 import json
 import os
 import time
+from datetime import datetime,timedelta
 from copy import deepcopy
 
 import pandas as pd
@@ -81,6 +82,8 @@ def execute_model():
         "model":"FYH"
     }
     
+    ts=time.time()
+    
     
     # PART 1: READ IN JSON DATA
 
@@ -127,7 +130,7 @@ def execute_model():
 
 
     execution_vars=[]
-    execution_string=f'SELECT * FROM {sql_tables[2]} WHERE('
+    execution_string=f'SELECT * FROM {sql_tables[3]} WHERE(' ## Changed from Table 2 => Table 3 (larger pool!)
     
     execution_string+=f'"{sql_columns[25]}" < {price_max} AND "{sql_columns[25]}" > {price_min}'
     execution_string+=" AND "
@@ -186,6 +189,8 @@ def execute_model():
 # PART 3: CONFIGURE MODEL SETTINGS
 
     def configure_model_weights(submission_type,bds,bas,sqft):
+        timestamp_weight=1
+        
         bd_weight=1
         ba_weight=1
         sqft_weight=1
@@ -199,7 +204,7 @@ def execute_model():
             if sqft==0:
                 sqft_weight=0
                 
-        return np.array([bd_weight,ba_weight,sqft_weight])
+        return np.array([bd_weight,ba_weight,sqft_weight,timestamp_weight])
 
     model_weights=configure_model_weights(submission_type,bedrooms,bathrooms,sqft)
     
@@ -231,14 +236,16 @@ def execute_model():
 
 # PART 4: PREPROCESS STREAMED DATA
     
-    NN_df=sampled_df[[f'{sql_columns[0]}',f'{sql_columns[1]}',f'{sql_columns[3]}']]
+    NN_df=sampled_df[[f'{sql_columns[0]}',f'{sql_columns[1]}',f'{sql_columns[3]}',f'{sql_columns[30]}']].copy()
     
-    input_df=pd.DataFrame({f'{sql_columns[0]}':[bedrooms],f'{sql_columns[1]}':[bathrooms],f'{sql_columns[3]}':[sqft]})
+    NN_df[f'{sql_columns[30]}']=NN_df[f'{sql_columns[30]}'].apply(lambda elem: elem.timestamp())
+    
+    input_df=pd.DataFrame({f'{sql_columns[0]}':[bedrooms],f'{sql_columns[1]}':[bathrooms],f'{sql_columns[3]}':[sqft],f'{sql_columns[30]}':[ts]})
         
     # Define the transformations for each column
     preprocessor = ColumnTransformer(
     transformers=[
-        ('minmax_scaler',MinMaxScaler(),[f'{sql_columns[0]}',f'{sql_columns[1]}',f'{sql_columns[3]}'])
+        ('minmax_scaler',MinMaxScaler(),[f'{sql_columns[0]}',f'{sql_columns[1]}',f'{sql_columns[3]}',f'{sql_columns[30]}'])
     ])
 
     # Apply the transformations in a pipeline
@@ -322,8 +329,6 @@ def execute_model():
     for h in output_no_id['data']:
         h['id']=None
     output_json=jsonify(output_no_id)
-    
-    ts=time.time()
     
     search_data={'input':o_input_data,'output':output}
     try:
