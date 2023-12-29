@@ -212,12 +212,16 @@ The AWS Lambda service is used to trigger the Support Pipeline after the Main Pi
 ### Main Pipeline
 Deployed as a Python:slim-buster image.
 
+Installs 2 required libraries not pre-installed on the image using apt-get.
+
 Uses requirements.txt to read dependencies and installs them with pip.
 
 Executes the `data_script.py` script as an entrypoint to allow for command line arguments.
 
 ### Support Pipeline
 Deployed as a Python:slim-buster image.
+
+Installs 2 required libraries not pre-installed on the image using apt-get.
 
 Uses requirements.txt to read dependencies and installs them with pip.
 
